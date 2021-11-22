@@ -1,0 +1,109 @@
+/* GENERALI */
+* {
+    list-style: none;
+}
+.row{
+    height: 100%;
+}
+img{
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.col-8{
+    border-left:2px solid lightslategray ;
+}
+input{
+    width: 100%;
+    border: none;
+}
+i{
+    margin: 0 10px;
+    font-size: 20px;
+    opacity: 0.5;
+}
+ul{
+    padding-left: 0;
+    height: 100%;
+    background-color: white;
+}
+.container{
+    background-color: rgb(234, 234, 234);
+}
+
+/*--- MAIN CHAT ---*/
+.my-profile{
+    margin: 10px 0;
+}
+/* notifiche */
+.notifiche{
+    background-color: rgb(159, 216, 248);
+    padding: 10px 0;
+}
+.notifiche > div:first-of-type{
+    background-color:white ;
+    border-radius: 100%;
+}
+.notifiche i{
+    color:rgb(159, 216, 248);
+    padding:15px 10px;
+}
+
+
+/* lista chat */
+li{
+    width: 100%;
+    border:1px solid rgb(234, 234, 234);
+    border-right:none ;
+    height: 80px;
+    border-left: none;
+    display: flex;
+    align-items: center;
+}
+li:first-of-type{
+    border-top: none;
+}
+li:last-of-type{
+    border-bottom: none;
+}
+
+.chats{
+    padding-left: 0;
+}
+
+/* ricerca utenti */
+#search{
+    padding-left: 50px;
+}
+#search-icon{
+    position: absolute;
+    left: 15px;
+    top: 3px;
+}
+
+.cavolo{
+    margin: 10px 0;
+    position: relative;
+}
+
+
+
+/*--- CHAT ---*/
+.col-8{
+    height: 100vh;
+}
+
+.chat{
+    background-image: url(../img/mine.jpg);
+}
+
+.menu-chat{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.messenger{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: rgb(242, 238, 234);
+}
