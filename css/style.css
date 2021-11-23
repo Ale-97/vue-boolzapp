@@ -24,7 +24,6 @@ i{
 }
 ul{
     padding-left: 0;
-    height: 100%;
     background-color: white;
 }
 .container{
@@ -52,7 +51,6 @@ ul{
 
 /* lista chat */
 li{
-    width: 100%;
     border:1px solid rgb(234, 234, 234);
     border-right:none ;
     height: 80px;
@@ -62,6 +60,8 @@ li{
 }
 li:first-of-type{
     border-top: none;
+    height: 40px;
+    justify-content: center;
 }
 li:last-of-type{
     border-bottom: none;
@@ -114,7 +114,24 @@ li:hover>.fa-times{
     padding-bottom: 20px;
     background-color: rgb(242, 238, 234);
 }
+.containerMessage{
+    margin: 50px 0;
+}
+.messageSent,.messageReceived{
+    background-size:cover;
+    background-position: bottom;
+    padding:0 20px 40px 20px ;
+    word-wrap: break-word;
+    max-width: 40%;
+}
+.messageSent span,.messageReceived span{
+font-size: 10px;
+}
 
-
-
+.messageSent{
+    background-image: url(../img/myBubble.png);
+}
+.messageReceived{
+    background-image: url(../img/friendsBubble.png);
+}
 

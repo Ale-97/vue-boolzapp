@@ -88,65 +88,86 @@ new Vue({
                 ],
             },
         ],
-        search:[],
-    
+        search: [],
+
         Chatter: [],
-        keyword:"",
-        chooseTheList:true,
-        openChat:[],
+        keyword: "",
+        keyMessage: "",
+        chooseTheList: true,
+        openChat: [],
     },
-    mounted() { 
+    mounted() {
 
 
     },
     methods: {
- 
+
         ricerca: function () {
-            const valore=document.getElementById('search').value;
-            this.chooseTheList= true
-            this.search=[];
+            const valore = document.getElementById('search').value;
+            this.chooseTheList = true
+            this.search = [];
 
-           for (let x = 0; x < this.contacts.length; x++) {
-                    if (valore.length > 0 && valore.toUpperCase() === this.contacts[x].name.toUpperCase().slice(0,valore.length)) {
+            for (let x = 0; x < this.contacts.length; x++) {
+                if (valore.length > 0 && valore.toUpperCase() === this.contacts[x].name.toUpperCase().slice(0, valore.length)) {
 
-                        if (!this.search.includes(this.contacts[x])) {
+                    if (!this.search.includes(this.contacts[x])) {
 
-                            this.search.push(this.contacts[x]);
-                        
-                        }
+                        this.search.push(this.contacts[x]);
+
                     }
                 }
+            }
         },
 
-        cavolo: function(chat){
-            valore="";
-            this.search=[];
-            this.keyword="";
-            if( !this.Chatter.includes(chat)){
+        cavolo: function (chat) {
+            this.search = [];
+            this.keyword = "";
+            if (!this.Chatter.includes(chat)) {
                 this.Chatter.push(chat)
             }
-            this.chooseTheList= false
+            this.chooseTheList = false
         },
 
 
-        // FUNZIONE CHE SERVE PER ELIMINARE UN ELEMENTO ALL'INTERNO DI LIST POSIZIONATO IN DATA
-        deleteChat: function(index){  
-            if(index===false){
-                this.openChat.splice(0,1);
-            }else{
-            if(this.openChat[0].name===this.Chatter[index].name &&this.openChat[0].avatar===this.Chatter[index].avatar ){
-                this.openChat.splice(0,1);
+        // FUNZIONE CHE SERVE PER ELIMINARE LE CHAT E LE CONVERSAZIONI
+        deleteChat: function (index) {
+            console.log(index)
+            if (index === false) {
+                this.openChat = [];
+            } else {
+                if (this.openChat.length > 0) {
+                    if (this.openChat[0].name === this.Chatter[index].name && this.openChat[0].avatar === this.Chatter[index].avatar) {
+                        this.openChat[0].messages = []
+                        this.openChat = [];
+                    }
+                }
+
+                this.Chatter.splice(index, 1);
             }
-            this.Chatter.splice(index,1);
+        },
+
+        open: function (selectChat) {
+
+            this.openChat = [selectChat];
+            this.valaa = true
+        },
+
+        sentMessage: function () {
+            let d = new Date().getDate() + "/" + new Date().getMonth() + "/" + new Date().getFullYear() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+
+            this.openChat[0].messages.push({
+                text: this.keyMessage,
+                date: d,
+                status: 'sent'
+            });
+            this.openChat[0].messages.push({
+                text: "ok",
+                date: d,
+                status: 'received'
+            });
+
+            this.keyMessage = "";
         }
-        },
-
-        open:function(selectChat){
-
-            this.openChat=[selectChat];
-            this.valaa=true
-        },
-
 
 
     }

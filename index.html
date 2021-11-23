@@ -18,21 +18,21 @@
     <div id="app">
         <div class="container">
             <div class="row">
-                <!-- MAIN-CHAT -->
+                <!-- LATO SINISTRO CON PROFILO E CHAT -->
                 <div class="col-4 main-chat">
                     <div class="row flex-column ">
 
-                        <!-- menu utente -->
+                        <!-- Menu personale -->
                         <div class="col-12 d-flex justify-content-between align-items-center my-profile">
 
-                            <!-- Profilo Uttente -->
+                            <!-- Profilo personale -->
                             <div>
                                 <img src="./img/avatar_io.jpg" alt="">
                                 <span>Nome Utente</span>
                             </div>
 
 
-                            <!-- icone menu -->
+                            <!-- icone poste a destra -->
                             <div>
                                 <i class="fas fa-circle-notch"></i>
                                 <i class="fas fa-comment-alt"></i>
@@ -40,10 +40,10 @@
                             </div>
 
                         </div>
-                        
-                        <!-- notifiche -->
+
+                        <!-- Ricevi notifiche -->
                         <div class="col-12 d-flex justify-content-around align-items-center notifiche">
-                           <div><i class="fas fa-bell-slash"></i></div>
+                            <div><i class="fas fa-bell-slash"></i></div>
 
                             <div>
                                 <div>Ricevi notifiche di nuovi messaggi</div>
@@ -51,40 +51,41 @@
                             </div>
                         </div>
 
-                        <!-- ricerca chat -->
+                        <!-- Barra per la ricerca delle chat -->
                         <div class="col-12 cavolo">
                             <i class="fas fa-search" id="search-icon"></i>
-                            <input type="text" id="search" v-model="keyword"  @keyup="ricerca()" >
-                            
+                            <input type="text" id="search" v-model="keyword" @keyup="ricerca()">
+
                         </div>
 
                         <!-- lista chat -->
-                        <div class="col chats">
+                        <div class="col chats overflow-auto">
 
-
+                            <!-- Viene visualizzato quando si cerca una chat -->
                             <ul v-if="chooseTheList">
-                                <li>Aggiungi una chat</li>
-                                <li v-for="element in search" @click="cavolo(element)" >
+                                <li >Aggiungi una chat</li>
+                                <li v-for="element in search" @click="cavolo(element)">
                                     <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
                                     {{element.name}}
                                 </li>
-                            </ul>  
-                            
-                            
+                            </ul>
+
+                            <!-- fa visualizzare la lista dlle coversazioni aperte -->
                             <ul v-else>
                                 <li>Chatta con i tuoi amici</li>
-                                <li class="d-flex justify-content-between align-items-center"v-for="(element,index) in Chatter"  >
-                                    <div  @click="open(element)" class="flex-grow-1" >
-                                        <img :src=" './img/avatar' + element.avatar + '.jpg' "alt="">
+                                <li class="d-flex justify-content-between align-items-center"
+                                    v-for="(element,index) in Chatter">
+                                    <div @click="open(element)" class="flex-grow-1">
+                                        <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
                                         {{element.name}}
                                     </div>
 
-                                    <i class="fas fa-times"  @click="deleteChat(index)"></i>
+                                    <i class="fas fa-times" @click="deleteChat(index)"></i>
                                 </li>
 
-                            </ul>                       
+                            </ul>
                         </div>
-                      
+
 
 
                     </div>
@@ -110,35 +111,48 @@
                         <div class="col-12  menu-chat">
                             <div v-for="element in openChat" class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-    
+
                                     <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
-    
+
                                     <div>{{element.name}}</div>
-                                    
+
                                 </div>
-    
+
                                 <div>
                                     <i class="fas fa-search"></i>
                                     <i class="fas fa-paperclip"></i>
                                     <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-times"  @click="deleteChat(false)"></i>
-                                    
+                                    <i class="fas fa-times" @click="deleteChat(false)"></i>
+
                                 </div>
 
 
                             </div>
-                            <div v-else></div>    
+                            <div v-else></div>
                         </div>
 
                         <!-- chat -->
-                        <div class="col chat ">
-                            <div class="row flex-column" v-for="dateChat in openChat">
-                                <div v-for="message in dateChat.messages" class="col-12  ">
-                                    <div v-if="message.status==='sent' " class="d-flex justify-content-end" >
-                                        {{message.text}}
+                        <div class="col chat  overflow-auto">
+                            <div class="row" v-for="dateChat in openChat">
+                                <div v-for="message in dateChat.messages" class="col-12 containerMessage">
+                                    <div v-if="message.status==='sent' " class="d-flex justify-content-end ">
+                                        <div class="messageSent">
+                                           {{message.text}}
+                                            <span class="d-flex justify-content-end">
+                                                {{message.date}}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div v-else>
-                                        {{message.text}}
+                                    <div v-else class="d-flex justify-content-left  ">
+                                        <div class="messageReceived ">
+                                            <div class="d-flex justify-content-end ">
+                                                {{message.text}}
+                                            </div>
+                                            <span class="d-flex justify-content-end">
+                                                {{message.date}}
+                                            </span>
+
+                                        </div>
                                     </div>
 
                                 </div>
@@ -151,7 +165,7 @@
                             <div>
                                 <i class="far fa-smile-beam"></i>
                             </div>
-                            <input type="text">
+                            <input type="text" @keyup.enter="sentMessage()" id="sentMessage2" v-model="keyMessage">
                             <div>
                                 <i class="fas fa-microphone"></i>
                             </div>
