@@ -70,6 +70,12 @@ li:last-of-type{
 .chats{
     padding-left: 0;
 }
+li>.fa-times{
+    display: none;
+}
+li:hover>.fa-times{
+    display: block;
+}
 
 /* ricerca utenti */
 #search{
@@ -100,6 +106,7 @@ li:last-of-type{
 .menu-chat{
     padding-top: 10px;
     padding-bottom: 10px;
+    height: 70px;
 }
 
 .messenger{
@@ -107,3 +114,7 @@ li:last-of-type{
     padding-bottom: 20px;
     background-color: rgb(242, 238, 234);
 }
+
+
+
+

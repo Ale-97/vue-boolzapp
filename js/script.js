@@ -92,10 +92,8 @@ new Vue({
     
         Chatter: [],
         keyword:"",
-        chooseTheList:true
-
-
-
+        chooseTheList:true,
+        openChat:[],
     },
     mounted() { 
 
@@ -130,6 +128,24 @@ new Vue({
             this.chooseTheList= false
         },
 
+
+        // FUNZIONE CHE SERVE PER ELIMINARE UN ELEMENTO ALL'INTERNO DI LIST POSIZIONATO IN DATA
+        deleteChat: function(index){  
+            if(index===false){
+                this.openChat.splice(0,1);
+            }else{
+            if(this.openChat[0].name===this.Chatter[index].name &&this.openChat[0].avatar===this.Chatter[index].avatar ){
+                this.openChat.splice(0,1);
+            }
+            this.Chatter.splice(index,1);
+        }
+        },
+
+        open:function(selectChat){
+
+            this.openChat=[selectChat];
+            this.valaa=true
+        },
 
 
 

@@ -66,15 +66,21 @@
                                 <li>Aggiungi una chat</li>
                                 <li v-for="element in search" @click="cavolo(element)" >
                                     <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
-                                    {{element.name}}</li>
+                                    {{element.name}}
+                                </li>
                             </ul>  
                             
                             
                             <ul v-else>
                                 <li>Chatta con i tuoi amici</li>
-                                <li v-for="element in Chatter" @click="" >
-                                    <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
-                                    {{element.name}}</li>
+                                <li class="d-flex justify-content-between align-items-center"v-for="(element,index) in Chatter"  >
+                                    <div  @click="open(element)" class="flex-grow-1" >
+                                        <img :src=" './img/avatar' + element.avatar + '.jpg' "alt="">
+                                        {{element.name}}
+                                    </div>
+
+                                    <i class="fas fa-times"  @click="deleteChat(index)"></i>
+                                </li>
 
                             </ul>                       
                         </div>
@@ -101,27 +107,43 @@
 
                     <div class="row flex-column">
                         <!-- menu chat -->
-                        <div class="col-12 d-flex justify-content-between align-items-center menu-chat">
-                            <div class="d-flex">
-                                <img src="./img/avatar_1.jpg" alt="">
-                                <div>
-                                    <div>nome uttente</div>
-                                    <div>ultimo accesso</div>
+                        <div class="col-12  menu-chat">
+                            <div v-for="element in openChat" class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+    
+                                    <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
+    
+                                    <div>{{element.name}}</div>
+                                    
                                 </div>
-                            </div>
+    
+                                <div>
+                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-paperclip"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                    <i class="fas fa-times"  @click="deleteChat(false)"></i>
+                                    
+                                </div>
 
-                            <div>
-                                <i class="fas fa-search"></i>
-                                <i class="fas fa-paperclip"></i>
-                                <i class="fas fa-ellipsis-v"></i>
-                                
-                            </div>
 
+                            </div>
+                            <div v-else></div>    
                         </div>
 
                         <!-- chat -->
                         <div class="col chat ">
-                            <div></div>
+                            <div class="row flex-column" v-for="dateChat in openChat">
+                                <div v-for="message in dateChat.messages" class="col-12  ">
+                                    <div v-if="message.status==='sent' " class="d-flex justify-content-end" >
+                                        {{message.text}}
+                                    </div>
+                                    <div v-else>
+                                        {{message.text}}
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
 
                         <!-- mandare messaggi -->
