@@ -88,22 +88,20 @@ new Vue({
                 ],
             },
         ],
-        search: [],
 
+
+        search: [],
         Chatter: [],
         keyword: "",
         keyMessage: "",
         chooseTheList: true,
         openChat: [],
     },
-    mounted() {
 
-
-    },
     methods: {
 
         ricerca: function () {
-            const valore = document.getElementById('search').value;
+            const valore = document.getElementById('searchUsers').value;
             this.chooseTheList = true
             this.search = [];
 
@@ -119,7 +117,7 @@ new Vue({
             }
         },
 
-        cavolo: function (chat) {
+        searchChat: function (chat) {
             this.search = [];
             this.keyword = "";
             if (!this.Chatter.includes(chat)) {

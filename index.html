@@ -19,7 +19,7 @@
         <div class="container d-flex flex-column justify-content-center">
             <div class="row ">
                 <!-- LATO SINISTRO CON PROFILO E CHAT -->
-                <div class="col-4 main-chat">
+                <div class="col-4">
                     <div class="row flex-column ">
 
                         <!-- Menu personale -->
@@ -47,14 +47,14 @@
 
                             <div>
                                 <div>Ricevi notifiche di nuovi messaggi</div>
-                                <div>Attiva notifiche desktop</div>
+                                <a href="">Attiva notifiche desktop</a>
                             </div>
                         </div>
 
                         <!-- Barra per la ricerca delle chat -->
-                        <div class="col-12 cavolo">
-                            <i class="fas fa-search" id="search-icon"></i>
-                            <input type="text" id="search" v-model="keyword" @keyup="ricerca()">
+                        <div class="col-12 containerSearchUsers">
+                            <i class="fas fa-search iconSearchUsers"></i>
+                            <input type="text" id="searchUsers" v-model="keyword" @keyup="ricerca()">
 
                         </div>
 
@@ -64,7 +64,7 @@
                             <!-- Viene visualizzato quando si cerca una chat -->
                             <ul v-if="chooseTheList">
                                 <li >Aggiungi una chat</li>
-                                <li v-for="element in search" @click="cavolo(element)">
+                                <li v-for="element in search" @click="searchChat(element)">
                                     <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
                                     {{element.name}}
                                 </li>
