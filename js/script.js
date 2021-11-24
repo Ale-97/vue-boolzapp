@@ -3,6 +3,7 @@ Vue.config.devtools = true;
 new Vue({
     el: `#app`,
     data: {
+        // Lista contatti
         contacts: [
             {
                 name: 'Michele',
@@ -89,26 +90,25 @@ new Vue({
             },
         ],
 
+        search: [],// vengono inseriti gli elementi della ricerca
+        Chatter: [],// vengono inserite le chat aperte
+        openChat: [],// viene inserita la chat con qui si vuole chattare
+        keyword: "",//testo all'interno dell'input di ricerca 
+        keyMessage: "",//testo all'interno dell'input per l'invio di messaggi 
+        chooseTheList: true,//valore che serve per la scelta della lista da far viualizzare, le liste sono quella della ricerca contatti e quella delle chat aperte
 
-        search: [],
-        Chatter: [],
-        keyword: "",
-        keyMessage: "",
-        chooseTheList: true,
-        openChat: [],
     },
 
     methods: {
-
+        //serve per la ricerca dell'uttente con cui si vuole parlare, cercherà in "contacts"
         ricerca: function () {
-            const valore = document.getElementById('searchUsers').value;
-            this.chooseTheList = true
-            this.search = [];
+            this.chooseTheList = true//cambio il valore in true così da far visualizzare la lista della ricerca
+            this.search = [];//svuota l'elemento, così che la lista visualizzi sempre e solo gli uttenti che corrispondono al testo appena inserito
+            for (let x = 0; x < this.contacts.length; x++) {//questo ciclo serve per esaminare gli elementi dentro i contatti
+                // |controllo che sia stato inserito qualcosa nell'input e poi se le lettere dei nomi posti all'interno dei contatti (entrambe messe maiuscole) corrispondono
+                if (this.keyword.length > 0 && this.keyword.toUpperCase() === this.contacts[x].name.toUpperCase().slice(0, this.keyword.length)) {
 
-            for (let x = 0; x < this.contacts.length; x++) {
-                if (valore.length > 0 && valore.toUpperCase() === this.contacts[x].name.toUpperCase().slice(0, valore.length)) {
-
-                    if (!this.search.includes(this.contacts[x])) {
+                    if (!this.search.includes(this.contacts[x])) {//controllo se l'elemnto è stato gia inserito nella lista degli elementi cercato così che non si creino doppioni di uno stesso contatto
 
                         this.search.push(this.contacts[x]);
 
@@ -116,40 +116,40 @@ new Vue({
                 }
             }
         },
-
-        searchChat: function (chat) {
-            this.search = [];
-            this.keyword = "";
-            if (!this.Chatter.includes(chat)) {
+        //serve per aggiungere la chat alla lista delle chat aperte
+        addChat: function (chat) {
+            this.search = [];//svuoto l'input della ricerca
+            this.keyword = "";//svuoto la scritta all'interno dell'input
+            if (!this.Chatter.includes(chat)) {//controllo che il contatto che sto puscando non sia già nella lista delle chat aperte
                 this.Chatter.push(chat)
             }
-            this.chooseTheList = false
+            this.chooseTheList = false//cambio il valore così da farmi visualizzare le chat aperte
         },
 
 
-        // FUNZIONE CHE SERVE PER ELIMINARE LE CHAT E LE CONVERSAZIONI
-        deleteChat: function (index) {
-            console.log(index)
-            if (index === false) {
-                this.openChat = [];
-            } else {
-                if (this.openChat.length > 0) {
-                    if (this.openChat[0].name === this.Chatter[index].name && this.openChat[0].avatar === this.Chatter[index].avatar) {
-                        this.openChat[0].messages = []
-                        this.openChat = [];
-                    }
+       // FUNZIONE CHE SERVE PER ELIMINARE LE CHAT E LE CONVERSAZIONI
+       deleteChat: function (index) {
+        if (index === false) {
+            this.openChat = [];//se index è uguale a false cancellera solo la conversazione aperta
+        } else {
+            if (this.openChat.length > 0) {//se si schiaccerà la x per eliminare la chat nella lista chat aperte verrà eliminata la chat in questione e anche tutti i messaggi con quella conversazione
+                if (this.openChat[0].name === this.Chatter[index].name && this.openChat[0].avatar === this.Chatter[index].avatar) {
+                    this.openChat[0].messages = []
+                    this.openChat = [];
                 }
-
-                this.Chatter.splice(index, 1);
             }
-        },
 
+            this.Chatter.splice(index, 1);
+        }
+    },
+
+
+
+        //serve per aprire la chat con cui si vuole messaggiare
         open: function (selectChat) {
-
             this.openChat = [selectChat];
-            this.valaa = true
         },
-
+        //serve per l'invio del messaggio
         sentMessage: function () {
             let d = new Date().getDate() + "/" + new Date().getMonth() + "/" + new Date().getFullYear() + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
 
@@ -158,6 +158,7 @@ new Vue({
                 date: d,
                 status: 'sent'
             });
+            //simulazione di risposta da parte dell'interlocutore
             this.openChat[0].messages.push({
                 text: "ok",
                 date: d,

@@ -64,7 +64,7 @@
                             <!-- Viene visualizzato quando si cerca una chat -->
                             <ul v-if="chooseTheList">
                                 <li >Aggiungi una chat</li>
-                                <li v-for="element in search" @click="searchChat(element)">
+                                <li v-for="element in search" @click="addChat(element)">
                                     <img :src=" './img/avatar' + element.avatar + '.jpg' " alt="">
                                     {{element.name}}
                                 </li>
@@ -123,8 +123,9 @@
 
                         <!-- chat -->
                         <div class="col chat  overflow-auto">
-                            <div class="row" v-for="dateChat in openChat">
-                                <div v-for="message in dateChat.messages" class="col-12 containerMessage">
+                            <div class="row" v-for="dataChat in openChat"><!-- ciclo per prendere i dati all'interno di openChat -->
+                                <div v-for="message in dataChat.messages" class="col-12 containerMessage"><!-- ciclo per prendere i dati all'interno di messagges, a sua volta all'inerno dell'uttente preso in esame in openChat-->
+                                    <!-- visualizza la lista dei risultati della ricerca -->
                                     <div v-if="message.status==='sent' " class="d-flex justify-content-end ">
                                         <div class="messageSent">
                                            {{message.text}}
@@ -133,6 +134,7 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <!-- visualizza la lista delle chat aperte -->
                                     <div v-else class="d-flex justify-content-left  ">
                                         <div class="messageReceived ">
                                             <div class="d-flex justify-content-end ">
